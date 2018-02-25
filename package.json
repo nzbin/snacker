@@ -1,0 +1,42 @@
+{
+  "name": "snacker",
+  "version": "0.1.0",
+  "description": "A CSS framework based on parts.",
+  "main": "dist/snacker.css",
+  "homepage": "https://github.com/nzbin/snacker#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nzbin/snacker.git"
+  },
+  "author": "nzbin <nzb329@163.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nzbin/snacker/issues"
+  },
+  "keywords": [
+    "snacker",
+    "css-framework",
+    "sass"
+  ],
+  "devDependencies": {
+    "autoprefixer": "^6.5.4",
+    "cpy-cli": "^1.0.1",
+    "node-sass": "^4.5.3",
+    "npm-run-all": "^2.3.0",
+    "onchange": "^2.5.0",
+    "postcss-cli": "^2.6.0",
+    "rimraf": "^2.5.4"
+  },
+  "engines": {
+    "node": ">=4"
+  },
+  "scripts": {
+    "start": "run-p build watch",
+    "build": "run-s clean sass autoprefixer",
+    "clean": "rimraf dist",
+    "sass": "node-sass --output-style expanded src/snacker.scss dist/snacker.css && node-sass --output-style compressed src/snacker.scss dist/snacker.min.css",
+    "copy": "cpy dist/*.css !dist/*.min.css docs/css",
+    "autoprefixer": "postcss -u autoprefixer --no-map.inline --autoprefixer.browsers \"last 1 versions\" -r dist/*.css",
+    "watch": "onchange src -- run-p build"
+  }
+}
