@@ -3,40 +3,52 @@
   "version": "0.1.0",
   "description": "A CSS framework based on parts.",
   "main": "dist/snacker.css",
+  "files": [
+    "dist",
+    "src"
+  ],
   "homepage": "https://github.com/nzbin/snacker#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nzbin/snacker.git"
   },
-  "author": "nzbin <nzb329@163.com>",
+  "author": "nzbin",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/nzbin/snacker/issues"
   },
   "keywords": [
     "snacker",
+    "snack",
+    "snack-helper",
     "css-framework",
     "sass"
   ],
   "devDependencies": {
-    "autoprefixer": "^6.5.4",
+    "autoprefixer": "^7.1.6",
     "cpy-cli": "^1.0.1",
     "node-sass": "^4.5.3",
     "npm-run-all": "^2.3.0",
     "onchange": "^2.5.0",
-    "postcss-cli": "^2.6.0",
-    "rimraf": "^2.5.4"
+    "postcss-cli": "^4.1.1",
+    "postcss-header": "^1.0.0",
+    "rimraf": "^2.5.4",
+    "stylelint": "^9.2.0",
+    "stylelint-config-recommended-scss": "^3.2.0",
+    "stylelint-config-standard": "^18.2.0",
+    "stylelint-scss": "^3.0.0"
   },
   "engines": {
     "node": ">=4"
   },
   "scripts": {
-    "start": "run-p build watch",
-    "build": "run-s clean sass autoprefixer",
+    "start": "run-p build:dev watch",
+    "build": "run-s clean sass sassmin postcss",
+    "build:dev": "run-s sass",
     "clean": "rimraf dist",
-    "sass": "node-sass --output-style expanded src/snacker.scss dist/snacker.css && node-sass --output-style compressed src/snacker.scss dist/snacker.min.css",
-    "copy": "cpy dist/*.css !dist/*.min.css docs/css",
-    "autoprefixer": "postcss -u autoprefixer --no-map.inline --autoprefixer.browsers \"last 1 versions\" -r dist/*.css",
-    "watch": "onchange src -- run-p build"
+    "sass": "node-sass --output-style expanded src/snacker.scss dist/snacker.css",
+    "sassmin": "node-sass --output-style compressed src/snacker.scss dist/snacker.min.css",
+    "postcss": "postcss -r dist/*.css --map",
+    "watch": "onchange src -- run-p build:dev"
   }
 }
